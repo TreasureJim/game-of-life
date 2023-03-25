@@ -1,8 +1,0 @@
-{
-  "files.associations": {
-    "sdl_audio.h": "c",
-    "stdint-gcc.h": "c",
-    "window.h": "c"
-  },
-  "cmake.configureOnOpen": true
-}

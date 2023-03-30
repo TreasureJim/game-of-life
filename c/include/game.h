@@ -4,6 +4,8 @@
 #include <SDL2/SDL.h>
 #include "window.h"
 
-void Game_RunFrame(SDL_Renderer *renderer, Window_Texture *texture, uint32_t *pixels);
+void Game_RunFrame(SDL_Renderer* renderer, Window_Texture* texture, uint32_t* pixels);
+
+void* FixedUpdate();
 
 #endif

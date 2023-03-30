@@ -2,70 +2,56 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <stdbool.h>
+#include <SDL2/SDL_ttf.h>
+#include <pthread.h>
 #include "window.h"
+#include "input_handler.h"
 #include "macros.h"
 #include "game.h"
-#include <SDL2/SDL_ttf.h>
 
 const uint32_t SCREEN_WIDTH = 720;
 const uint32_t SCREEN_HEIGHT = 900;
 
+Window_Container* window_container = NULL;
+
 TTF_Font* g_font;
+
+uint8_t game_frequency;
+pthread_mutex_t m_game_running;
+pthread_mutex_t m_game_pixels;
+uint32_t* game_pixels = NULL;
 
 int main(int argc, char* argv[])
 {
 	int result = EXIT_SUCCESS;
-
-	SDL_Window* window = NULL;
-	SDL_Surface* screenSurface = NULL;
+	window_container = NULL;
 
 	// Initialize SDL
-	if (Window_Init(&window, SCREEN_WIDTH, SCREEN_HEIGHT) < 0)
+	if (Window_Init(&window_container, SCREEN_WIDTH, SCREEN_HEIGHT) < 0)
 		return 1;
 
-	if (TTF_Init() < 0)
-	{
-		fprintf(stderr, "Couldn't initialise TTF. SDL error: %s", SDL_GetError());
-		defer(EXIT_FAILURE);
-	}
-	g_font = TTF_OpenFont("./fonts/Minimal5x7.ttf", 48);
-	if (!g_font) {
-		fprintf(stderr, "Failed to load font. SDL error: %s", SDL_GetError());
-		defer(EXIT_FAILURE);
-	}
-
-
-	// screenSurface = SDL_GetWindowSurface(window);
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
-	if (!renderer)
-	{
-		fprintf(stderr, "Renderer could not be created. SDL error: %s\n", SDL_GetError());
-		defer(EXIT_FAILURE);
-	}
-
-	Window_Texture* texture = Window_CreateTexture(renderer, SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
-	if (!texture)
-		defer(1);
-
 	// Edit raw pixel data
-	uint32_t* pixels = malloc(texture->width * 4 * texture->height);
+	game_pixels = malloc(window_container->game_texture->width * window_container->game_texture->height * 4);
+	if (!game_pixels) return -1;
+
+	pthread_mutex_init(&m_game_running, NULL);
+	pthread_t thread_fixed_update;
+	pthread_create(&thread_fixed_update, NULL, &FixedUpdate, NULL);
 
 	// keep window up
 	SDL_Event e;
-	while (true)
-	{
+	while (true) {
 		SDL_PollEvent(&e);
 		if (e.type == SDL_QUIT)
 			break;
 
-		Game_RunFrame(renderer, texture, pixels);
+		Window_HandleInput(e);
+
+		Window_Container_Render(window_container);
 	}
 
 defer:
-	TTF_CloseFont(g_font);
-	TTF_Quit();
-	SDL_DestroyTexture(texture->texture);
-	SDL_DestroyRenderer(renderer);
-	Window_Close(window);
+	Window_Container_Close(window_container);
+	pthread_mutex_destroy(&m_game_running);
 	return result;
 }

@@ -2,15 +2,15 @@ IDIR=./include
 
 CC=gcc
 LIBS=-lm -lSDL2 -lSDL2_ttf
-CFLAGS=-I$(IDIR) $(LIBS)
+CFLAGS=-I$(IDIR) $(LIBS) -g
 
 ODIR=obj
 LDIR =../lib
 
-_DEPS = window.h macros.h game.h
+_DEPS = window.h macros.h game.h input_handler.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = gol.o window.o game.o
+_OBJ = gol.o window.o game.o input_handler.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 

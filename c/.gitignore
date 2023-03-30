@@ -1,2 +1,7 @@
 **.o
 gol
+
+.vscode/
+compile_commands.json
+
+.cache/

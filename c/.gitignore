@@ -5,3 +5,5 @@ gol
 compile_commands.json
 
 .cache/
+
+libraries/**

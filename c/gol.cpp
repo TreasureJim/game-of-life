@@ -11,8 +11,8 @@
 #include "macros.h"
 #include "game.h"
 
-const uint32_t SCREEN_WIDTH = 720;
-const uint32_t SCREEN_HEIGHT = 900;
+uint32_t SCREEN_WIDTH = 720;
+uint32_t SCREEN_HEIGHT = 900;
 
 Window_Container* window_container = NULL;
 

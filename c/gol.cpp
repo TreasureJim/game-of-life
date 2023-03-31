@@ -1,11 +1,13 @@
+#include <cstdlib>
+#include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 #include <SDL2/SDL_ttf.h>
 #include <pthread.h>
+
 #include "window.h"
-#include "input_handler.h"
 #include "macros.h"
 #include "game.h"
 
@@ -31,8 +33,8 @@ int main(int argc, char* argv[])
 		return 1;
 
 	// Edit raw pixel data
-	game_pixels = malloc(window_container->game_texture->width * window_container->game_texture->height * 4);
-	if (!game_pixels) return -1;
+	game_pixels = (uint32_t*)malloc(window_container->game_texture->width * window_container->game_texture->height * 4);
+	if (!game_pixels) defer(EXIT_FAILURE);
 
 	pthread_mutex_init(&m_game_running, NULL);
 	pthread_t thread_fixed_update;

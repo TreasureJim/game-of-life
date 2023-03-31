@@ -13,7 +13,7 @@
 
 int Window_Init(Window_Container** p_window_container, uint16_t screen_width, uint16_t screen_height)
 {
-	Window_Container* window_container = malloc(sizeof(Window_Container));
+	Window_Container* window_container = (Window_Container*) malloc(sizeof(Window_Container));
 	*p_window_container = window_container;
 
 	// Initialize SDL
@@ -97,7 +97,7 @@ void Window_CopyPixels(SDL_Renderer* renderer, Window_Texture* texture, uint32_t
 }
 
 void Window_RenderText(SDL_Renderer* renderer, char* text, WindowText_Options options) {
-	SDL_Color fg = { 255, 255, 255, 255 }, bg = { 0,0,0,0 };
+	SDL_Color fg = { 255, 255, 255, 255 };
 	SDL_Surface* text_surface = TTF_RenderUTF8_Solid(g_font, text, fg);
 
 	if (options.fix_right) options.x = SCREEN_WIDTH - text_surface->w;

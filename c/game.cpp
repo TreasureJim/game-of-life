@@ -10,8 +10,7 @@ void Game_NextStep() {
 	// TODO
 }
 
-void* FixedUpdate() {
-	uint8_t on = 0;
+void* FixedUpdate(void* arg) {
 	while (1) {
 		pthread_mutex_lock(&m_game_running);
 		pthread_mutex_unlock(&m_game_running);

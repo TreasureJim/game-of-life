@@ -24,7 +24,7 @@ void Window_HandleMouseInput() {
 	static int x, y;
 	SDL_GetMouseState(&x, &y);
 
-	if (x < 0 || x > SCREEN_WIDTH || y < 0 || y > SCREEN_HEIGHT || mouse_x == x && mouse_y == y) {
+	if (x < 0 || x > SCREEN_WIDTH || y < 0 || y > SCREEN_HEIGHT || (mouse_x == x && mouse_y == y)) {
 		return;
 	}
 

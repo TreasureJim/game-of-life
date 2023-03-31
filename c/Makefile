@@ -1,8 +1,9 @@
 IDIR=./include
 
-CC=gcc
+CC=g++
 LIBS=-lm -lSDL2 -lSDL2_ttf
-CFLAGS=-I$(IDIR) $(LIBS) -g
+#CFLAGS=$(patsubst %,-I/%,$(IDIR)) $(LIBS) -g
+CFLAGS=-I$(IDIR) $(LIBS) -g -Wall
 
 ODIR=obj
 LDIR =../lib
@@ -14,7 +15,7 @@ _OBJ = gol.o window.o game.o input_handler.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
-$(ODIR)/%.o: %.c $(DEPS)
+$(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 gol: $(OBJ)

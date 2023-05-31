@@ -1,3 +1,6 @@
+# Reference Material
+OpenGL with ImGui: https://github.com/maturk/RayTracer
+
 # TODO: 
 
 - [x] Fix rendering pipeline

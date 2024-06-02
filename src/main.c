@@ -76,6 +76,7 @@ void ProcessEvents()
 }
 
 SDL_Rect rectangles[SIMULATION_HEIGHT * SIMULATION_WIDTH];
+SDL_Rect borders[4];
 
 void RenderWindow()
 {
@@ -96,9 +97,11 @@ void RenderWindow()
 
 			SDL_Rect s = {x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE};
 			rectangles[n_rects - 1] = s;
-			SDL_RenderDrawRects(renderer, rectangles, n_rects);
 		}
 	}
+	SDL_RenderDrawRects(renderer, rectangles, n_rects);
+
+	SDL_RenderFillRects(renderer, borders, 4);
 
 	SDL_RenderPresent(renderer);
 }
@@ -126,6 +129,15 @@ void Setup()
 	front_buffer[POS(2, 2)] = 1;
 	front_buffer[POS(1, 0)] = 1;
 	front_buffer[POS(2, 1)] = 1;
+
+	// top
+	borders[0] = (SDL_Rect){-1, -1, CELL_SIZE * SIMULATION_WIDTH, 1};
+	// right
+	borders[1] = (SDL_Rect){CELL_SIZE * SIMULATION_WIDTH + 1, -1, 1, CELL_SIZE * SIMULATION_HEIGHT};
+	// bottom
+	borders[2] = (SDL_Rect){-1, CELL_SIZE * SIMULATION_WIDTH + 1, CELL_SIZE * SIMULATION_WIDTH, 1};
+	// left
+	borders[3] = (SDL_Rect){-1, -1, 1, CELL_SIZE * SIMULATION_HEIGHT};
 }
 
 int main()

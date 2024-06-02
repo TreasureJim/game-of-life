@@ -1,7 +1,6 @@
 #pragma once
 
-#define SIMULATION_HEIGHT 100
-#define SIMULATION_WIDTH 100
+#include "config.h"
 
 extern char front_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT];
 

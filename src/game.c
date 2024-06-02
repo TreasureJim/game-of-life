@@ -1,9 +1,8 @@
 #include "game.h"
 #include <SDL2/SDL_stdinc.h>
 
-char front_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT] = {0},
-                                     back_buffer[SIMULATION_WIDTH *
-                                                 SIMULATION_HEIGHT] = {0};
+char front_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT] = {0};
+char back_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT] = {0};
 
 #define mod(x, N) (x % N + N) % N
 

@@ -1,0 +1,9 @@
+#pragma once
+
+#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 800
+
+#define SIMULATION_HEIGHT 100
+#define SIMULATION_WIDTH 100
+
+#define CELL_SIZE 20

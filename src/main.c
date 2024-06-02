@@ -9,9 +9,7 @@
 #include <stdio.h>
 
 #include "game.h"
-
-#define WINDOW_HEIGHT 600
-#define WINDOW_WIDTH 800
+#include "config.h"
 
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -77,7 +75,6 @@ void ProcessEvents()
 	}
 }
 
-#define CELL_SIZE 20
 SDL_Rect rectangles[SIMULATION_HEIGHT * SIMULATION_WIDTH];
 
 void RenderWindow()
@@ -113,8 +110,6 @@ void DestroyWindow()
 	SDL_Quit();
 }
 
-#define STEP_LENGTH 1 / (float)30
-
 Uint32 last_frame_tick;
 void Update()
 {
@@ -126,12 +121,6 @@ void Update()
 
 void Setup()
 {
-	/*
-	 * 0 1 0
-	 * 0 0 1
-	 * 1 1 1
-	 */
-
 	front_buffer[POS(0, 2)] = 1;
 	front_buffer[POS(1, 2)] = 1;
 	front_buffer[POS(2, 2)] = 1;

@@ -6,4 +6,6 @@
 #define SIMULATION_HEIGHT 100
 #define SIMULATION_WIDTH 100
 
-#define CELL_SIZE 20
+#define CAMERA_SPEED 200
+
+#define ZOOM_SPEED 2

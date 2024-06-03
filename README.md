@@ -9,6 +9,18 @@ Conway's Game of Life is a cellular automaton devised by the British mathematici
 - Configurable grid size and initial configuration.
 - Real-time simulation of the Game of Life rules.
 
+## Controls
+
+    Panning:
+        WASD keys to pan the view.
+
+    Zooming:
+        + to zoom in.
+        - to zoom out.
+
+    Simulation:
+        N to step to the next generation manually.
+
 ## Requirements
 
 To compile and run this program, you will need:

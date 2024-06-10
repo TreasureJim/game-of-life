@@ -9,9 +9,11 @@
 #include <stdio.h>
 
 #include "config.h"
+#include "globals.h"
 
 #include "camera_control.h"
 #include "game.h"
+#include "windows.h"
 
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -88,35 +90,6 @@ void ProcessEvents() {
   }
 }
 
-SDL_Rect rectangles[SIMULATION_HEIGHT * SIMULATION_WIDTH];
-SDL_Rect borders[4];
-
-void RenderWindow() {
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-  SDL_RenderClear(renderer);
-
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-  Uint32 n_rects = 0;
-  for (int y = 0; y < SIMULATION_HEIGHT; y++) {
-    for (int x = 0; x < SIMULATION_HEIGHT; x++) {
-      Uint32 pos = POS(x, y);
-      if (!front_buffer[pos])
-        continue;
-      n_rects++;
-
-      SDL_Rect s = {x * cell_size + camera_offset_x,
-                    y * cell_size + camera_offset_y, cell_size, cell_size};
-      rectangles[n_rects - 1] = s;
-    }
-  }
-  SDL_RenderDrawRects(renderer, rectangles, n_rects);
-
-  SDL_RenderFillRects(renderer, borders, 4);
-
-  SDL_RenderPresent(renderer);
-}
-
 void DestroyWindow() {
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
@@ -133,33 +106,26 @@ void Update() {
 }
 
 void Setup() {
+  // render_func = &RenderGame;
+  render_func = &RenderCentreText;
+
   front_buffer[POS(0, 2)] = 1;
   front_buffer[POS(1, 2)] = 1;
   front_buffer[POS(2, 2)] = 1;
   front_buffer[POS(1, 0)] = 1;
   front_buffer[POS(2, 1)] = 1;
-
-  // top
-  borders[0] = (SDL_Rect){-1, -1, cell_size * SIMULATION_WIDTH, 1};
-  // right
-  borders[1] = (SDL_Rect){cell_size * SIMULATION_WIDTH + 1, -1, 1,
-                          cell_size * SIMULATION_HEIGHT};
-  // bottom
-  borders[2] = (SDL_Rect){-1, cell_size * SIMULATION_WIDTH + 1,
-                          cell_size * SIMULATION_WIDTH, 1};
-  // left
-  borders[3] = (SDL_Rect){-1, -1, 1, cell_size * SIMULATION_HEIGHT};
 }
 
+
 int main() {
-  game_running = InitialiseWindow();
+  game_running = InitialiseWindow() & InitialiseText();
 
   Setup();
 
   while (game_running) {
     ProcessEvents();
     Update();
-    RenderWindow();
+    render_func();
   }
 
   DestroyWindow();

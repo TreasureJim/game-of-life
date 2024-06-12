@@ -12,4 +12,4 @@ extern const Uint8 *keystate;
 
 extern char game_running;
 
-extern char centre_text[100];
+extern char text_buffer[TEXT_BUFFER_SIZE];

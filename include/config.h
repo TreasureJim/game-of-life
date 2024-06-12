@@ -9,3 +9,5 @@
 #define CAMERA_SPEED 200
 
 #define ZOOM_SPEED 2
+
+#define TEXT_BUFFER_SIZE 100

@@ -14,6 +14,7 @@
 #include "camera_control.h"
 #include "game.h"
 #include "windows.h"
+#include "input_control.h"
 
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -43,51 +44,6 @@ int InitialiseWindow() {
   }
 
   return 1;
-}
-
-void HandleKeyDown(SDL_KeyCode keycode) {
-  switch (keycode) {
-  case SDLK_ESCAPE:
-    game_running = 0;
-    break;
-  case SDLK_SPACE:
-  case SDLK_n:
-    step();
-    break;
-  case SDLK_w:
-  case SDLK_a:
-  case SDLK_s:
-  case SDLK_d:
-    // UpdatePanning(keycode);
-    break;
-  case SDLK_EQUALS:
-    HandleZooming(1);
-    break;
-  case SDLK_MINUS:
-    HandleZooming(0);
-    break;
-  default:
-    break;
-  }
-}
-
-void HandleKeyUp(SDL_Keycode keycode) {
-  switch (keycode) {}
-}
-
-void ProcessEvents() {
-  SDL_Event event;
-  while (SDL_PollEvent(&event)) {
-    switch (event.type) {
-    case SDL_QUIT:
-      game_running = 0;
-      break;
-    case SDL_KEYDOWN:
-      HandleKeyDown(event.key.keysym.sym);
-    case SDL_KEYUP:
-      HandleKeyUp(event.key.keysym.sym);
-    }
-  }
 }
 
 void DestroyWindow() {
@@ -123,7 +79,7 @@ int main() {
   Setup();
 
   while (game_running) {
-    ProcessEvents();
+    process_events_func();
     Update();
     render_func();
   }

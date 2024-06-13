@@ -24,6 +24,10 @@ char count_neighbours(Uint16 x, Uint16 y) {
   return count;
 }
 
+void swap_buffers() {
+  memcpy(front_buffer, back_buffer, sizeof(back_buffer));
+}
+
 void step() {
   for (int y = 0; y < SIMULATION_HEIGHT; y++) {
     for (int x = 0; x < SIMULATION_HEIGHT; x++) {
@@ -46,5 +50,5 @@ void step() {
     }
   }
 
-  memcpy(front_buffer, back_buffer, sizeof(back_buffer));
+  swap_buffers();
 }

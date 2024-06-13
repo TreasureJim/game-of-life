@@ -2,8 +2,7 @@
 
 #include "config.h"
 
-extern char front_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT];
-
 void step();
+void swap_buffers();
 
 #define POS(x, y) y*SIMULATION_WIDTH + x

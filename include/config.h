@@ -1,5 +1,7 @@
 #pragma once
 
+#define FONT_FILE_NAME "FFFFORWA.TTF"
+
 #define WINDOW_HEIGHT 600
 #define WINDOW_WIDTH 800
 
@@ -9,3 +11,5 @@
 #define CAMERA_SPEED 200
 
 #define ZOOM_SPEED 2
+
+#define TEXT_BUFFER_SIZE 100

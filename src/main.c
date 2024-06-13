@@ -11,10 +11,9 @@
 #include "config.h"
 #include "globals.h"
 
-#include "camera_control.h"
-#include "game.h"
 #include "windows.h"
 #include "input_control.h"
+#include "serialisation.h"
 
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -61,12 +60,7 @@ void Update() {
 
 void Setup() {
   render_func = &RenderGame;
-
-  front_buffer[POS(0, 2)] = 1;
-  front_buffer[POS(1, 2)] = 1;
-  front_buffer[POS(2, 2)] = 1;
-  front_buffer[POS(1, 0)] = 1;
-  front_buffer[POS(2, 1)] = 1;
+  load_pattern("glider");
 }
 
 

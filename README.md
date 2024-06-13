@@ -15,11 +15,14 @@ Conway's Game of Life is a cellular automaton devised by the British mathematici
         WASD keys to pan the view.
 
     Zooming:
-        + to zoom in.
-        - to zoom out.
+        `+` to zoom in.
+        `-` to zoom out.
 
     Simulation:
-        N to step to the next generation manually.
+        `Space` or `N` to step to the next generation manually.
+
+    Loading patterns:
+        `l` to load a pattern from `patterns/`
 
 ## Requirements
 
@@ -49,8 +52,11 @@ make run
 You can configure the simulation parameters by editing the `config.h` file. Key parameters include:
 
 - `SIMULATION_WIDTH` and `SIMULATION_HEIGHT` to set the size of the grid.
-- `CELL_SIZE` to adjust the size of each cell on the screen in pixels.
+- `FONT_FILE_NAME` - change the font loaded in `/assets/fonts/`
+- `WINDOW_HEIGHT` and `WINDOW_WIDTH` - changes the window size
+- `CAMERA_SPEED` - how fast the camera pans
+- `ZOOM_SPEED` - how fast the camera zooms
 
 ---
 
-Thank you for checking out this implementation of Conway's Game of Life in C using SDL2. Enjoy coding and happy simulating!
+Thank you for checking out this implementation of Conway's Game of Life. Enjoy coding and happy simulating!

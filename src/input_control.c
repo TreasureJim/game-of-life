@@ -2,6 +2,7 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keyboard.h>
 #include <SDL2/SDL_keycode.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "camera_control.h"
@@ -102,8 +103,8 @@ void ProcessSaveEvents() {
 void HandleLoadKeyDown(SDL_Keycode keysym) {
   switch (keysym) {
   case SDLK_RETURN:
-    SwitchMode(MODE_GAME);
     load_pattern(text_buffer);
+    SwitchMode(MODE_GAME);
     break;
   case SDLK_ESCAPE:
     SwitchMode(MODE_GAME);

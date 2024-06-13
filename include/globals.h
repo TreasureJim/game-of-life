@@ -4,6 +4,7 @@
 #include "config.h"
 
 extern char front_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT];
+extern char back_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT];
 
 extern SDL_Window *window;
 extern SDL_Renderer *renderer;

@@ -6,3 +6,4 @@ void RenderGame();
 void RenderCentreText();
 
 char InitialiseText();
+void UpdateTextTexture();

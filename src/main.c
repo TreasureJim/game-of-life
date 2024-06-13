@@ -57,13 +57,10 @@ float delta_time;
 void Update() {
   delta_time = (SDL_GetTicks64() - last_frame_tick) / 1000.0f;
   last_frame_tick = SDL_GetTicks64();
-
-  UpdatePanning();
 }
 
 void Setup() {
-  // render_func = &RenderGame;
-  render_func = &RenderCentreText;
+  render_func = &RenderGame;
 
   front_buffer[POS(0, 2)] = 1;
   front_buffer[POS(1, 2)] = 1;

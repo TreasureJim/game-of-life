@@ -9,12 +9,13 @@
 #include "globals.h"
 #include "input_control.h"
 #include "modes.h"
+#include "windows.h"
 
 void (*process_events_func)() = &ProcessGameEvents;
 
 void ProcessEvents() { process_events_func(); }
 
-void HandleKeyDown(SDL_KeyCode keycode) {
+void HandleGameKeyDown(SDL_KeyCode keycode) {
   switch (keycode) {
   case SDLK_ESCAPE:
     game_running = 0;
@@ -47,7 +48,7 @@ void HandleKeyDown(SDL_KeyCode keycode) {
   }
 }
 
-void HandleKeyUp(SDL_Keycode keycode) {
+void HandleGameKeyUp(SDL_Keycode keycode) {
   switch (keycode) {}
 }
 
@@ -59,26 +60,73 @@ void ProcessGameEvents() {
       game_running = 0;
       break;
     case SDL_KEYDOWN:
-      HandleKeyDown(event.key.keysym.sym);
+      HandleGameKeyDown(event.key.keysym.sym);
     case SDL_KEYUP:
-      HandleKeyUp(event.key.keysym.sym);
+      HandleGameKeyUp(event.key.keysym.sym);
+    }
+  }
+
+  UpdatePanning();
+}
+
+void HandleSaveKeyDown(SDL_Keycode keysym) {
+  switch (keysym) {
+  case SDLK_RETURN:
+    SwitchMode(MODE_GAME);
+    fprintf(stderr, "TODO: saving");
+    break;
+  case SDLK_ESCAPE:
+    SwitchMode(MODE_GAME);
+    break;
+  }
+}
+
+void AppendTextBuffer(char *text) {
+  strlcat(text_buffer, text, sizeof(text_buffer));
+  UpdateTextTexture();
+}
+
+void ProcessSaveEvents() {
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    switch (event.type) {
+    case SDL_QUIT:
+      SwitchMode(MODE_GAME);
+      break;
+    case SDL_KEYDOWN:
+      HandleSaveKeyDown(event.key.keysym.sym);
+      break;
+    case SDL_TEXTINPUT:
+      AppendTextBuffer(event.text.text);
+      break;
     }
   }
 }
 
-void ProcessTextEventsKeyDown(SDL_Keysym keysym) {}
+void HandleLoadKeyDown(SDL_Keycode keysym) {
+  switch (keysym) {
+  case SDLK_RETURN:
+    SwitchMode(MODE_GAME);
+    fprintf(stderr, "TODO: load");
+    break;
+  case SDLK_ESCAPE:
+    SwitchMode(MODE_GAME);
+    break;
+  }
+}
 
-char text_buffer[TEXT_BUFFER_SIZE] = "";
-
-void ProcessTextEvents() {
+void ProcessLoadEvents() {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
+    case SDL_QUIT:
+      SwitchMode(MODE_GAME);
+      break;
     case SDL_KEYDOWN:
-      ProcessTextEventsKeyDown(event.key.keysym);
+      HandleLoadKeyDown(event.key.keysym.sym);
       break;
     case SDL_TEXTINPUT:
-      strlcat(text_buffer, event.text.text, sizeof(text_buffer));
+      AppendTextBuffer(event.text.text);
       break;
     }
   }

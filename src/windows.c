@@ -39,7 +39,7 @@ void RenderGame() {
   SDL_RenderPresent(renderer);
 }
 
-char centre_text[100] = "weeeeeee";
+char text_buffer[100] = "";
 
 TTF_Font *font;
 SDL_Color font_color = {255, 255, 255};
@@ -54,10 +54,15 @@ char InitialiseText() {
   }
 
   font = TTF_OpenFont("assets/fonts/arcadeclassic.ttf", 48);
-  text_surface = TTF_RenderText_Solid(font, centre_text, font_color);
+  text_surface = TTF_RenderText_Solid(font, text_buffer, font_color);
   text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
 
   return 1;
+}
+
+void UpdateTextTexture() {
+  text_surface = TTF_RenderText_Solid(font, text_buffer, font_color);
+  text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
 }
 
 void RenderCentreText() {

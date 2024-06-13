@@ -1,7 +1,6 @@
 #include "input_control.h"
 #include "windows.h"
 #include <SDL2/SDL_keyboard.h>
-#include <stdio.h>
 
 typedef enum { MODE_GAME, MODE_LOAD, MODE_SAVE } Mode;
 
@@ -12,11 +11,9 @@ void SwitchMode(Mode mode) {
   switch (current_mode) {
   case MODE_LOAD:
     SDL_StopTextInput();
-    fprintf(stderr, "TODO: loading");
     break;
   case MODE_SAVE:
     SDL_StopTextInput();
-    fprintf(stderr, "TODO: saving");
     break;
   case MODE_GAME:
     break;
@@ -30,10 +27,14 @@ void SwitchMode(Mode mode) {
     process_events_func = &ProcessGameEvents;
     break;
   case MODE_LOAD:
+    SDL_StartTextInput();
+    render_func = &RenderCentreText;
+    process_events_func = &ProcessLoadEvents;
+    break;
   case MODE_SAVE:
     SDL_StartTextInput();
     render_func = &RenderCentreText;
-    process_events_func = &ProcessTextEvents;
+    process_events_func = &ProcessSaveEvents;
     break;
   }
 }

@@ -10,8 +10,8 @@
 #include "globals.h"
 #include "input_control.h"
 #include "modes.h"
-#include "windows.h"
 #include "serialisation.h"
+#include "windows.h"
 
 void (*process_events_func)() = &ProcessGameEvents;
 
@@ -102,6 +102,11 @@ void ProcessSaveEvents() {
 
 void HandleLoadKeyDown(SDL_Keycode keysym) {
   switch (keysym) {
+  case SDLK_BACKSPACE:
+    int len = strlen(text_buffer);
+    text_buffer[len - 1] = '\0';
+    UpdateTextTexture();
+    break;
   case SDLK_RETURN:
     load_pattern(text_buffer);
     SwitchMode(MODE_GAME);

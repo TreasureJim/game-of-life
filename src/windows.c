@@ -57,7 +57,7 @@ char InitialiseText() {
     return 0;
   }
 
-  font = TTF_OpenFont("assets/fonts/arcadeclassic.ttf", 48);
+  font = TTF_OpenFont("assets/fonts/" FONT_FILE_NAME, 48);
   input_text_surface = TTF_RenderText_Solid(font, text_buffer, font_color);
   input_text_texture = SDL_CreateTextureFromSurface(renderer, input_text_surface);
 
@@ -65,6 +65,9 @@ char InitialiseText() {
   file_text_surface = TTF_RenderText_Solid(font, FILE_TEXT, font_color);
   file_text_texture = SDL_CreateTextureFromSurface(renderer, file_text_surface);
   TTF_SizeText(font, FILE_TEXT, &file_text_rect.w, &file_text_rect.h);
+
+  input_text_rect.y = WINDOW_HEIGHT/2 - file_text_rect.h / 2;
+  file_text_rect.y = input_text_rect.y - file_text_rect.h;
 
   return 1;
 }

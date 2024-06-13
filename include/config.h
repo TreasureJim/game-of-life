@@ -1,5 +1,7 @@
 #pragma once
 
+#define FONT_FILE_NAME "FFFFORWA.TTF"
+
 #define WINDOW_HEIGHT 600
 #define WINDOW_WIDTH 800
 

@@ -43,9 +43,13 @@ char text_buffer[100] = "";
 
 TTF_Font *font;
 SDL_Color font_color = {255, 255, 255};
-SDL_Surface* text_surface;
-SDL_Texture* text_texture;
-SDL_Rect text_rect = {0, 0, 300, 100};
+SDL_Surface* input_text_surface;
+SDL_Texture* input_text_texture;
+SDL_Rect input_text_rect = {0, WINDOW_HEIGHT/2 - 49/2, 300, 100};
+
+SDL_Surface*  file_text_surface;
+SDL_Texture*  file_text_texture;
+SDL_Rect      file_text_rect = {0, WINDOW_HEIGHT/2 - 49/2 - 49, 300, 100};
 
 char InitialiseText() {
   if (TTF_Init()) {
@@ -54,22 +58,30 @@ char InitialiseText() {
   }
 
   font = TTF_OpenFont("assets/fonts/arcadeclassic.ttf", 48);
-  text_surface = TTF_RenderText_Solid(font, text_buffer, font_color);
-  text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
+  input_text_surface = TTF_RenderText_Solid(font, text_buffer, font_color);
+  input_text_texture = SDL_CreateTextureFromSurface(renderer, input_text_surface);
+
+  #define FILE_TEXT "FILE NAME:"
+  file_text_surface = TTF_RenderText_Solid(font, FILE_TEXT, font_color);
+  file_text_texture = SDL_CreateTextureFromSurface(renderer, file_text_surface);
+  TTF_SizeText(font, FILE_TEXT, &file_text_rect.w, &file_text_rect.h);
 
   return 1;
 }
 
 void UpdateTextTexture() {
-  text_surface = TTF_RenderText_Solid(font, text_buffer, font_color);
-  text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
+  input_text_surface = TTF_RenderText_Solid(font, text_buffer, font_color);
+  input_text_texture = SDL_CreateTextureFromSurface(renderer, input_text_surface);
+
+  TTF_SizeText(font, text_buffer, &input_text_rect.w, &input_text_rect.h);
 }
 
 void RenderCentreText() {
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
 
-  SDL_RenderCopy(renderer, text_texture, NULL, &text_rect);
+  SDL_RenderCopy(renderer, file_text_texture, NULL, &file_text_rect);
+  SDL_RenderCopy(renderer, input_text_texture, NULL, &input_text_rect);
 
   SDL_RenderPresent(renderer);
 }

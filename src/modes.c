@@ -1,3 +1,4 @@
+#include "globals.h"
 #include "input_control.h"
 #include "windows.h"
 #include <SDL2/SDL_keyboard.h>
@@ -10,10 +11,10 @@ void SwitchMode(Mode mode) {
   // exiting mode events
   switch (current_mode) {
   case MODE_LOAD:
-    SDL_StopTextInput();
-    break;
   case MODE_SAVE:
     SDL_StopTextInput();
+    text_buffer[0] = '\0';
+    UpdateTextTexture();
     break;
   case MODE_GAME:
     break;

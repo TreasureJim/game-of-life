@@ -10,6 +10,7 @@
 #include "input_control.h"
 #include "modes.h"
 #include "windows.h"
+#include "serialisation.h"
 
 void (*process_events_func)() = &ProcessGameEvents;
 
@@ -48,10 +49,6 @@ void HandleGameKeyDown(SDL_KeyCode keycode) {
   }
 }
 
-void HandleGameKeyUp(SDL_Keycode keycode) {
-  switch (keycode) {}
-}
-
 void ProcessGameEvents() {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
@@ -61,8 +58,7 @@ void ProcessGameEvents() {
       break;
     case SDL_KEYDOWN:
       HandleGameKeyDown(event.key.keysym.sym);
-    case SDL_KEYUP:
-      HandleGameKeyUp(event.key.keysym.sym);
+      break;
     }
   }
 
@@ -73,7 +69,7 @@ void HandleSaveKeyDown(SDL_Keycode keysym) {
   switch (keysym) {
   case SDLK_RETURN:
     SwitchMode(MODE_GAME);
-    fprintf(stderr, "TODO: saving");
+    fprintf(stderr, "TODO: saving\n");
     break;
   case SDLK_ESCAPE:
     SwitchMode(MODE_GAME);
@@ -107,7 +103,7 @@ void HandleLoadKeyDown(SDL_Keycode keysym) {
   switch (keysym) {
   case SDLK_RETURN:
     SwitchMode(MODE_GAME);
-    fprintf(stderr, "TODO: load");
+    load_pattern(text_buffer);
     break;
   case SDLK_ESCAPE:
     SwitchMode(MODE_GAME);

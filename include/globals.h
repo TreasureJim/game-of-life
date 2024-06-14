@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include "config.h"
 
+#define MAX_FRAME_LENGTH 1/(float)FRAME_MAX
+
 extern char front_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT];
 extern char back_buffer[SIMULATION_WIDTH * SIMULATION_HEIGHT];
 

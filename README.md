@@ -56,6 +56,7 @@ You can configure the simulation parameters by editing the `config.h` file. Key 
 - `WINDOW_HEIGHT` and `WINDOW_WIDTH` - changes the window size
 - `CAMERA_SPEED` - how fast the camera pans
 - `ZOOM_SPEED` - how fast the camera zooms
+- `FRAME_MAX` - the frame rate cap
 
 ---
 

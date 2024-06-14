@@ -1,5 +1,7 @@
 #pragma once
 
+#define FRAME_MAX 60
+
 #define FONT_FILE_NAME "FFFFORWA.TTF"
 
 #define WINDOW_HEIGHT 600

@@ -56,6 +56,9 @@ float delta_time;
 void Update() {
   delta_time = (SDL_GetTicks64() - last_frame_tick) / 1000.0f;
   last_frame_tick = SDL_GetTicks64();
+
+  if (delta_time < MAX_FRAME_LENGTH) 
+    SDL_Delay((MAX_FRAME_LENGTH - delta_time) * 1000);
 }
 
 void Setup() {
